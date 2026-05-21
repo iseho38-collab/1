@@ -4,6 +4,7 @@ import time
 
 st.set_page_config(page_title="BB 잭팟 카지노", page_icon="🎰")
 
+# CSS: 정중앙 배치 및 디자인
 st.markdown("""
     <style>
     .stApp { background: radial-gradient(circle, #1a1a1a, #000); color: #fff; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
@@ -18,6 +19,7 @@ st.markdown("<h1 class='main-title'>🎰 JESSE'S SLOT</h1>", unsafe_allow_html=T
 symbols = ["🧪", "💸", "🍗", "🕶️", "🚗", "💎"]
 insults = ["겨우 그 정도냐?", "루저, 돈 더 긁어와!", "우리 할머니가 돌려도 이것보단 잘해!", "운도 지지리도 없지."]
 
+# 이미지 URL
 WIN_GIF = "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMW5tMjQxNTN3OXVidXR6OWptd2JubTNsdndiZW54d2hhODh3eTgwaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/QCKlfpNs03Yn0AME9E/giphy.gif"
 LOSE_GIF = "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExcXppM2R0bm0xaWVuZ2MybGxpdWs4d2hkODFid2piNWFrM3dqaHBpMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/YVMmMqAhNbJMQTzOMV/giphy.gif"
 
@@ -25,13 +27,13 @@ slot_placeholder = st.empty()
 slot_placeholder.markdown("<div class='slot-container'><div class='slot-item'>❓</div><div class='slot-item'>❓</div><div class='slot-item'>❓</div></div>", unsafe_allow_html=True)
 
 if st.button("내 인생 건다 (ALL IN)"):
+    # 5초간 회전 연출
     start_time = time.time()
     while time.time() - start_time < 5:
         s1, s2, s3 = random.choice(symbols), random.choice(symbols), random.choice(symbols)
         slot_placeholder.markdown(f"<div class='slot-container'><div class='slot-item'>{s1}</div><div class='slot-item'>{s2}</div><div class='slot-item'>{s3}</div></div>", unsafe_allow_html=True)
         time.sleep(0.1)
 
+    # 결과 판정
     r1, r2, r3 = random.choice(symbols), random.choice(symbols), random.choice(symbols)
-    slot_placeholder.markdown(f"<div class='slot-container'><div class='slot-item'>{r1}</div><div class='slot-item'>{r2}</div><div class='slot-item'>{r3}</div></div>", unsafe_allow_html=True)
-
-    if r1 == r2
+    slot_placeholder.markdown(f"<div class='slot-

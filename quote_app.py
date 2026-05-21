@@ -1,6 +1,7 @@
 import streamlit as st
 import random
 import time
+import os # 파일 존재 확인을 위해 추가
 
 st.set_page_config(page_title="BB 잭팟 카지노", page_icon="🎰")
 
@@ -17,8 +18,7 @@ st.markdown("""
     }
     .main-title { font-size: 50px; color: #FFD700; text-shadow: 0 0 10px #FFD700; }
     .slot-container { display: flex; justify-content: center; gap: 15px; margin: 20px 0; }
-    .slot-item { font-size: 60px; background: #222; border: 5px solid #FFD700; border-radius: 10px; width: 100px; height: 100px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 15px #FFD700; }
-    .result-gif { margin-top: 20px; border: 5px solid #fff; box-shadow: 0 0 30px rgba(255, 255, 255, 0.5); filter: brightness(1.2) contrast(1.1); border-radius: 15px; }
+    .slot-item { font-size: 60px; background: #222; border: 5px solid #FFD700; border-radius: 10px; width: 100px; height: 100px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 15px #FFD700; font-family: sans-serif; }
     </style>
 """, unsafe_allow_html=True)
 
@@ -40,13 +40,27 @@ if st.button("내 인생 건다 (ALL IN)"):
         time.sleep(0.1)
 
     r1, r2, r3 = random.choice(symbols), random.choice(symbols), random.choice(symbols)
+    # 테스트용: 무조건 성공하게 하려면 아래 주석 해제
+    # r1 = r2 = r3 = "💎"
+
     slot_placeholder.markdown(f"<div class='slot-container'><div class='slot-item'>{r1}</div><div class='slot-item'>{r2}</div><div class='slot-item'>{r3}</div></div>", unsafe_allow_html=True)
 
     if r1 == r2 == r3:
         st.balloons()
-        st.markdown("<p style='font-size:30px; color:#00FF00;'>💎 JACKPOT!!! 제국은 네 것이다!</p>", unsafe_allow_html=True)
-        # 이미지 삽입을 위한 따옴표 구분 확인!
-        st.markdown("""<img src='https://media.giphy.com/media/10j1ZzXpA0qG6/giphy.gif' width='300' class='result-gif'>""", unsafe_allow_html=True)
+        st.markdown("<p style='font-size:30px; color:#00FF00; text-align:center;'>💎 JACKPOT!!! 제국은 네 것이다!</p>", unsafe_allow_html=True)
+        # 이미지 전면 배치 스타일 (그림자 효과 추가)
+        st.markdown("<style>.stImage img { box-shadow: 0 0 30px rgba(255,255,255,0.7); border-radius:15px; border: 5px solid #fff; }</style>", unsafe_allow_html=True)
+        # 저장소에 올린 파일 불러오기
+        if os.path.exists('win_walter.png'):
+            st.image('win_walter.png', width=300)
+        else:
+            st.error("이미지 파일을 못 찾았어! 깃허브에 올렸는지 확인해봐.")
     else:
-        st.markdown(f"<p style='font-size:20px; color:#FF4B4B;'>{random.choice(insults)}</p>", unsafe_allow_html=True)
-        st.markdown("""<img src='https://media.giphy.com/media/I9mN5ZzW7u8Tq/giphy.gif' width='300' class='result-gif'>""", unsafe_allow_html=True)
+        st.markdown(f"<p style='font-size:20px; color:#FF4B4B; text-align:center;'>{random.choice(insults)}</p>", unsafe_allow_html=True)
+        # 이미지 전면 배치 스타일 (그림자 효과 추가)
+        st.markdown("<style>.stImage img { box-shadow: 0 0 30px rgba(255,255,255,0.7); border-radius:15px; border: 5px solid #fff; }</style>", unsafe_allow_html=True)
+        # 저장소에 올린 파일 불러오기
+        if os.path.exists('lose_walter.png'):
+            st.image('lose_walter.png', width=300)
+        else:
+            st.error("이미지 파일을 못 찾았어! 깃허브에 올렸는지 확인해봐.")

@@ -18,15 +18,7 @@ st.markdown("""
     .main-title { font-size: 50px; color: #FFD700; text-shadow: 0 0 10px #FFD700; }
     .slot-container { display: flex; justify-content: center; gap: 15px; margin: 20px 0; }
     .slot-item { font-size: 60px; background: #222; border: 5px solid #FFD700; border-radius: 10px; width: 100px; height: 100px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 15px #FFD700; }
-    
-    /* GIF를 앞으로 땡겨주는 스타일: 밝기와 그림자 효과 */
-    .result-gif {
-        margin-top: 20px;
-        border: 5px solid #fff;
-        box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
-        filter: brightness(1.2) contrast(1.1);
-        border-radius: 15px;
-    }
+    .result-gif { margin-top: 20px; border: 5px solid #fff; box-shadow: 0 0 30px rgba(255, 255, 255, 0.5); filter: brightness(1.2) contrast(1.1); border-radius: 15px; }
     </style>
 """, unsafe_allow_html=True)
 
@@ -53,5 +45,8 @@ if st.button("내 인생 건다 (ALL IN)"):
     if r1 == r2 == r3:
         st.balloons()
         st.markdown("<p style='font-size:30px; color:#00FF00;'>💎 JACKPOT!!! 제국은 네 것이다!</p>", unsafe_allow_html=True)
-        # GIF를 HTML img 태그로 직접 삽입
-        st.markdown("<img src='
+        # 이미지 삽입을 위한 따옴표 구분 확인!
+        st.markdown("""<img src='https://media.giphy.com/media/10j1ZzXpA0qG6/giphy.gif' width='300' class='result-gif'>""", unsafe_allow_html=True)
+    else:
+        st.markdown(f"<p style='font-size:20px; color:#FF4B4B;'>{random.choice(insults)}</p>", unsafe_allow_html=True)
+        st.markdown("""<img src='https://media.giphy.com/media/I9mN5ZzW7u8Tq/giphy.gif' width='300' class='result-gif'>""", unsafe_allow_html=True)

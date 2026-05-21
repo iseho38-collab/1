@@ -2,48 +2,53 @@ import streamlit as st
 import random
 import time
 
-# 1. 페이지 설정 및 디자인 (가운데 정렬 + 반짝이는 애니메이션)
 st.set_page_config(page_title="BB 잭팟 카지노", page_icon="🎰")
 
+# CSS를 아주 깔끔하게 정리했습니다.
 st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
+    .stApp { background: radial-gradient(circle, #1a1a1a, #000); color: #fff; text-align: center; font-family: sans-serif; }
+    .main-title { font-size: 60px; color: #FFD700; text-shadow: 0 0 20px #FFD700; margin-bottom: 20px; }
+    .slot-container { display: flex; justify-content: center; gap: 10px; margin: 30px 0; }
+    .slot-item { font-size: 80px; background: #222; border: 5px solid #FFD700; border-radius: 10px; width: 120px; height: 120px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px #FFD700; }
+    .win-text { font-size: 50px; color: #00FF00; margin-top: 20px; }
+    .lose-text { font-size: 30px; color: #FF4B4B; margin-top: 20px; }
+    </style>
+""", unsafe_allow_html=True)
 
-    /* 배경: 화려한 다크 카지노 느낌 */
-    .stApp {
-        background: radial-gradient(circle, #1a1a1a, #000);
-        color: #fff;
-        font-family: 'Black Han Sans', sans-serif;
-        text-align: center;
-    }
+st.markdown("<h1 class='main-title'>🎰 JESSE'S SLOT</h1>", unsafe_allow_html=True)
 
-    /* 제목 & 버튼 가운데 정렬 */
-    .main-title { font-size: 80px; color: #FFD700; text-shadow: 0 0 20px #FFD700; margin-bottom: 20px; }
+symbols = ["🧪", "💸", "🍗", "🕶️", "🚗", "💎"]
+insults = ["겨우 그 정도냐?", "루저, 돈 더 긁어와!", "우리 할머니가 돌려도 이것보단 잘해!", "운도 지지리도 없지."]
+
+if st.button("내 인생 건다 (ALL IN)"):
+    slot_placeholder = st.empty()
+    start_time = time.time()
     
-    /* 슬롯 박스 디자인 */
-    .slot-container {
-        display: flex; justify-content: center; gap: 20px; margin: 50px 0;
-    }
-    .slot-item {
-        font-size: 100px; background: #222; border: 8px solid #FFD700;
-        border-radius: 15px; width: 180px; height: 180px;
-        display: flex; align-items: center; justify-content: center;
-        box-shadow: 0 0 30px #FFD700;
-    }
+    # 5초간 회전 연출
+    while time.time() - start_time < 5:
+        s1, s2, s3 = random.choice(symbols), random.choice(symbols), random.choice(symbols)
+        slot_placeholder.markdown(f"""
+            <div class='slot-container'>
+                <div class='slot-item'>{s1}</div>
+                <div class='slot-item'>{s2}</div>
+                <div class='slot-item'>{s3}</div>
+            </div>
+        """, unsafe_allow_html=True)
+        time.sleep(0.1)
 
-    /* 성공 시 반짝거리는 애니메이션 */
-    @keyframes sparkle {
-        0% { filter: brightness(1); transform: scale(1); }
-        50% { filter: brightness(2.5); transform: scale(1.1); text-shadow: 0 0 50px #fff; }
-        100% { filter: brightness(1); transform: scale(1); }
-    }
-    .win-text {
-        font-size: 60px; color: #00FF00; animation: sparkle 0.5s infinite;
-        margin-top: 30px;
-    }
+    # 최종 결과
+    res1, res2, res3 = random.choice(symbols), random.choice(symbols), random.choice(symbols)
+    slot_placeholder.markdown(f"""
+        <div class='slot-container'>
+            <div class='slot-item'>{res1}</div>
+            <div class='slot-item'>{res2}</div>
+            <div class='slot-item'>{res3}</div>
+        </div>
+    """, unsafe_allow_html=True)
 
-    /* 실패 시 문구 스타일 */
-    .lose-text { font-size: 40px; color: #FF4B4B; margin-top: 30px; }
-    
-    /* 버튼 커스텀 (가운데 정렬용 CSS) */
-    div.
+    if res1 == res2 == res3:
+        st.balloons()
+        st.markdown("<p class='win-text'>💎 JACKPOT!!! 제국은 네 것이다! 💎</p>", unsafe_allow_html=True)
+    else:
+        st.markdown(f"<p class='lose-text'>{random.choice(insults)}</p>", unsafe_allow_html=True)

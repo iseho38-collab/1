@@ -2,32 +2,45 @@ import streamlit as st
 import random
 import time
 
-st.set_page_config(page_title="Breaking Bad Slot", page_icon="🎰")
+st.set_page_config(page_title="BB 슬롯머신", page_icon="🎰")
 
-# 슬롯 아이콘
+# 건방진 멘트 리스트
+insults = ["겨우 그 정도냐?", "운도 실력이야, 요.", "내 얼굴 보고도 그게 나와?", "더 분발해봐, 루저.", "아직 멀었어."]
+
+st.markdown("""
+    <style>
+    .stApp { background-color: #000; color: #FFD700; text-align: center; }
+    .slot { font-size: 50px; border: 5px solid #FFD700; padding: 20px; margin: 10px; }
+    .neon { text-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700; }
+    </style>
+""", unsafe_allow_html=True)
+
+st.title("🎰 Breaking Bad CASINO")
 symbols = ["🧪", "💸", "🍗", "🕶️", "🚗"]
 
-st.title("🎰 Breaking Bad Slot")
+if st.button("돌려, YO!"):
+    # 1. 돌아가는 모션 (빠르게 5번 교체)
+    slot_placeholder = st.empty()
+    for _ in range(5):
+        with slot_placeholder.container():
+            c1, c2, c3 = st.columns(3)
+            c1.markdown(f"<div class='slot'>{random.choice(symbols)}</div>", unsafe_allow_html=True)
+            c2.markdown(f"<div class='slot'>{random.choice(symbols)}</div>", unsafe_allow_html=True)
+            c3.markdown(f"<div class='slot'>{random.choice(symbols)}</div>", unsafe_allow_html=True)
+        time.sleep(0.1)
 
-if st.button("돌려라, YO!"):
-    # 3개 랜덤 추출
-    slot1 = random.choice(symbols)
-    slot2 = random.choice(symbols)
-    slot3 = random.choice(symbols)
+    # 2. 결과 추출
+    s1, s2, s3 = random.choice(symbols), random.choice(symbols), random.choice(symbols)
     
-    # 결과 보여주기 (힙하게 표현)
-    col1, col2, col3 = st.columns(3)
-    col1.metric("1", slot1)
-    col2.metric("2", slot2)
-    col3.metric("3", slot3)
-    
-    # 잭팟 판별
-    if slot1 == slot2 == slot3:
-        st.balloons() # 축하 폭죽
-        st.success("잭팟이다! 제국을 건설할 시간이야!")
-        st.video("https://www.youtube.com/watch?v=k4K23W31v4Q") # 월터의 웃음 영상 등
+    with slot_placeholder.container():
+        c1, c2, c3 = st.columns(3)
+        c1.markdown(f"<div class='slot'>{s1}</div>", unsafe_allow_html=True)
+        c2.markdown(f"<div class='slot'>{s2}</div>", unsafe_allow_html=True)
+        c3.markdown(f"<div class='slot'>{s3}</div>", unsafe_allow_html=True)
+
+    # 3. 결과 판정
+    if s1 == s2 == s3:
+        st.balloons()
+        st.markdown("<h1 class='neon'>JACKPOT! 제국을 건설할 시간이다!</h1>", unsafe_allow_html=True)
     else:
-        st.error("꽝이야. 다시 도전해.")
-
-st.markdown("---")
-st.write("3개가 일치하면 잭팟입니다.")
+        st.error(random.choice(insults))
